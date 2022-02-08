@@ -22,7 +22,7 @@
 
     <div>
       <label for="item">Enter a new item:</label>
-      <input type="text" name="item" id="item">
+      <input type="text" name="item" id="item" PLACEHOLDER="Enter your food" REQUIRED>
       <button onclick="click()">Add item</button>
     </div>
 
@@ -37,13 +37,45 @@
     const button = document.querySelector('button');
 
     const div = document.querySelector('div');
+    const value = document.querySelector('input').value;
 
-    button.onclick = function() {
-        const text = document.createElement('p');
-        text.textContent = 'prueba de funcion click';
-        div.appendChild(text)
-    };
+    button.onclick = function click() {
+
+            const li = document.createElement('li');
+
+            const span = document.createElement('span');
+            const deletebutton = document.createElement('button');
+
+            const value = document.querySelector('input').value;
+
+            span.textContent = value;
+            deletebutton.textContent = 'Delete';
+
+            if (value != '') {
+
+            ul.appendChild(li);
+            li.appendChild(span);
+            li.appendChild(deletebutton);
+
+            } else {
+                alert("Enter your food");
+            }
+
+            deletebutton.style.height = "20px";
+            deletebutton.style.width = "50px";
+            deletebutton.style.fontSize = "12px";
+            deletebutton.style.color = "black";
+
         
+            const reset = document.querySelector('input').value = '';
+
+            reset.textContent = reset;
+
+            deletebutton.onclick = function() {
+                ul.removeChild(li);
+            }
+        };
+     
     </script>
   </body>
 </html>
