@@ -10,7 +10,25 @@
     
 <script>
 
-    
+    const games = ['Rock', 'Paper', 'Scissors'];
+    const playerPlay = prompt('Choose your game'); // working
+
+    function game() {
+        
+        
+
+        const computerSelection = games[Math.floor(Math.random()*games.length)]
+        const playerSelection = playerPlay
+
+        if (computerSelection === "Rock" && playerSelection === "Paper") {
+            console.log("Player wins");
+        }
+
+        console.log(playerPlay);
+        console.log(computerSelection);
+    };
+
+    game();
 
 </script>
 
