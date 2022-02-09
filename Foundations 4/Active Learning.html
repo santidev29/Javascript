@@ -8,9 +8,26 @@
 </head>
 <body>
 
+<div></div>
+
 <script>
 
+const output = document.querySelector('div') // output working
 
+  for (let i=10 ; i>=0 ; i--) {
+
+    const nuevo = document.createElement('p');
+
+   if (i === 10) {
+      nuevo.textContent = "Countdown 10";
+    } else if (i === 0) {
+      nuevo.textContent = "Pum";
+    } else {
+      nuevo.textContent = i;
+    }
+    
+    output.appendChild(nuevo);
+  }
 
 </script>
 
