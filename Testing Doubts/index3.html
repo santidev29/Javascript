@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const sumAll = function(min, max) {
+
+        if (!Number.isInteger(min) || !Number.isInteger(max)) return "ERROR";
+        if (min < 0 || max < 0) return "ERROR";
+        if (min > max) {
+            const temp = min;
+            min = max;
+            max = temp;
+            }
+
+        let sum = 0;    
+        for (i = min; i < max + 1; i++) { // why i < max + 1?
+                sum += i;
+        }
+        return(sum);
+
+        };
+
+    </script>
+
+</body>
+</html>

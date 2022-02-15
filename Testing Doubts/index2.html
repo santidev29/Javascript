@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+
+const removeFromArray = function (...args) {
+  
+  // let array = [...arguments]; ==> Option 2 for creating array.
+
+    
+    const array = args[0];
+    const newArray = [];
+
+    array.forEach((item) => {
+
+        if (!args.includes(item)) {
+            newArray.push(item);
+        }
+
+      });
+
+      console.log(newArray);
+};
+
+removeFromArray([1, 2, 3, 4, 5, 6, 7, "hey"], 3, "hey");
+
+</script>
+
+</body>
+</html>

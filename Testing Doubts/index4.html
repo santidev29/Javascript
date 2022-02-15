@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        const leapYears = function(years) {
+
+            const year = years;
+
+            if ((year % 4 === 0 && ( year % 100 !== 0 || year % 400 === 0))) {
+                console.log(year);
+                console.log("Leap Year");
+                return true
+            } else {
+                console.log(year);
+                console.log("Not Leap Year");
+                return false;
+            }
+        }
+
+    </script>
+    
+</body>
+</html>

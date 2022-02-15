@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+<script>
+
+    const people = ['Chris', 'Anne', 'Colin', 'Terri', 'Phil', 'Lola', 'Sam', 'Kay', 'Bruce'];
+
+    const body = document.querySelector('body');
+    
+    const admited = document.createElement('p');
+    const notadmited = document.createElement('p');
+
+    admited.textContent = "Admitidos:";
+    notadmited.textContent = "No Admitidos:";
+
+    body.appendChild(admited);
+    body.appendChild(notadmited);
+
+    for (const personas of people) {
+        if (personas === "Phil" || personas === "Lola") {
+            notadmited.textContent += " " + personas + ", ";
+        } else {
+            admited.textContent += " " + personas + ", ";
+        }
+    }
+
+    admited.textContent = admited.textContent.slice(0,admited.textContent.length-2) + '.';
+    notadmited.textContent = notadmited.textContent.slice(0,notadmited.textContent.length-2) + '.';
+
+    let i = 0
+    while (i <= 3) {
+        alert(`number ${i}!`);
+     i++ }
+
+</script>
+
+</body>
+</html>
