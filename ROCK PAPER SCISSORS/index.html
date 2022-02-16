@@ -15,14 +15,16 @@
 
     function game() {
         
-        
-
         const computerSelection = games[Math.floor(Math.random()*games.length)]
         const playerSelection = playerPlay
 
-        if (computerSelection === "Rock" && playerSelection === "Paper") {
+        if (computerSelection === "Paper" && playerSelection === "Rock") {
+            console.log("Computer wins");
+        } else if (computerSelection === "Paper" && playerSelection === "Scissors") {
             console.log("Player wins");
-        }
+        } else if (computerSelection === "Paper" && playerSelection === "Paper") {
+            console.log("Tied");
+
 
         console.log(playerPlay);
         console.log(computerSelection);
