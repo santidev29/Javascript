@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+.grid {
+    display: grid;
+    width: 500px;
+    height: 500px;
+    background-color: var(--secondary-light);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.clear {
+    width: 100px;
+}
+
+.color-box {
+    margin-top: 1px;
+    margin-left: 50px; 
+}
+
+.container {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 280px;
+}
+
+body {
+    background-color: white;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-left: 100px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+}
+
+button:hover, input[type='color']:hover {
+    transform: scale(1.05);
+}
+
+button.active {
+    background-color: black;
+    color: white;
+    
+}
+
+#eraserBtn {
+    width: 81px;
+}
+
+button.active {
+  background-color: black;
+  color: white;
+}
+
+#colorPicker {
+    width: 80px;
+    height: 80px;
+    border: none;
+}
+
+button,
+input {
+  width: 100%;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+@media (max-width: 1200px) {
+  .main {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 850px) {
+  .main {
+    gap: 50px;
+  }
+
+  .settings {
+    width: 150px;
+    gap: 16px;
+  }
+
+  .size-value {
+    margin-bottom: -4px;
+  }
+
+  .grid {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 650px) {
+  .title {
+    font-size: 50px;
+  }
+
+  .main {
+    flex-direction: column-reverse;
+  }
+
+  .grid {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 80px;
+}
+
+</style>
+
+<body>
+
+    <h1 class="title">Etch-a-sketch</h1>
+
+    <div class="container">
+
+        <div class="settings">
+
+            <div class="color-box">
+                <input id="colorPicker" type="color" value="#333333" />
+            </div>
+
+            <button id="colorBtn" class="active">Color mode</button>
+            <button id="rainbowBtn">Rainbow mode</button>
+            <button id="eraserBtn">Eraser</button>
+
+        </div>
+
+        <div class="main">
+            <div class="grid"></div>
+            <button class="clear"> Clear Grid </button>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    const DEFAULT_COLOR = '#333333'
+    const DEFAULT_MODE = 'color'
+
+    let currentColor = DEFAULT_COLOR;
+    let currentMode = DEFAULT_MODE
+
+    const grid = document.querySelector('.grid');
+    const button = document.querySelector('.clear');
+    const colorPicker = document.getElementById('colorPicker');
+    const eraserBtn = document.getElementById('eraserBtn')
+    const rainbowBtn = document.getElementById('rainbowBtn')
+
+    button.addEventListener("click", clearGrid);
+    colorBtn.onclick = () => setCurrentMode('color');
+    rainbowBtn.onclick = () => setCurrentMode('rainbow')
+    eraserBtn.onclick = () => setCurrentMode('eraser');
+
+    function clearGrid() {
+        
+        gridItems = document.querySelectorAll('.grid-item');
+
+        for (i = 1; i < 256; i++) {
+            gridItems[i].style.backgroundColor = "";
+        }
+    }
+
+    function setupGrid() { 
+
+        grid.style.gridTemplateColumns = `repeat(${16}, 1fr)` //investigar
+        grid.style.gridTemplateRows = `repeat(${16}, 1fr)` //investigar
+
+        for (let i = 1; i <= 256; i++) {
+            const gridElement = document.createElement('div')
+            gridElement.classList.add('grid-item'); // works like a tag
+            gridElement.addEventListener('mouseover', changeColor)
+            grid.appendChild(gridElement)
+        }
+    }
+
+    colorPicker.onchange = (e) => setCurrentColor(e.target.value)
+
+    function setCurrentColor(newColor) {
+        currentColor = newColor
+        }
+    
+    function changeColor(e) {
+
+        if (currentMode === 'rainbow') {
+            const randomR = Math.floor(Math.random() * 256)
+            const randomG = Math.floor(Math.random() * 256)
+            const randomB = Math.floor(Math.random() * 256)
+            e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`
+        } else if (currentMode === 'color') {
+            e.target.style.backgroundColor = currentColor
+        } else if (currentMode === 'eraser') {
+            e.target.style.backgroundColor = '#fefefe'
+        }
+    }
+
+    function setCurrentMode(newMode) {
+         activateButton(newMode)
+         currentMode = newMode
+        }
+
+    function activateButton(newMode) {
+            if (currentMode === 'rainbow') {
+                rainbowBtn.classList.remove('active')
+        } else if (currentMode === 'color') {
+                colorBtn.classList.remove('active')
+        } else if (currentMode === 'eraser') {
+                eraserBtn.classList.remove('active')
+    }
+
+        if (newMode === 'rainbow') {
+            rainbowBtn.classList.add('active')
+        } else if (newMode === 'color') {
+            colorBtn.classList.add('active')
+        } else if (newMode === 'eraser') {
+            eraserBtn.classList.add('active')
+        }
+    }
+
+    window.onload = () => {
+        setupGrid();
+        activateButton(DEFAULT_MODE);
+}
+
+</script>
