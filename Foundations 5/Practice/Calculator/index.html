@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.calculator {
+    margin-top: 100px;
+    width: 400px;
+    height: 465px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.screen {
+    margin-top: 25px;
+    width: 350px;
+    height: 100px;
+    border-style: solid;
+    border-width: 1,5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 40px;
+    padding-right: 10px;
+}
+
+.screen-last {
+    display: flex;
+    width: 350px;
+    justify-content: flex-end;
+}
+
+.screen-current {
+    display: flex;
+    width: 350px;
+    justify-content: flex-end;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 360px;
+    height: 300px;
+    gap: 10px;
+}
+
+.btn {
+    background-color: white;
+    font-size: 20px;
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+}
+
+.btn:hover {
+    background-color: rgb(199, 199, 199);
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+</style>
+
+<body>
+
+    <main class="main">
+        <div class="calculator">
+          <div class="screen">
+            <div class="screen-last" id="lastOperationScreen"></div>
+            <div class="screen-current" id="currentOperationScreen">0</div>
+          </div>
+          <div class="buttons-grid">
+            <button
+              class="btn btn-red span-2"
+              id="clearBtn"
+              onclick="this.blur();"
+            >
+              CLEAR
+            </button>
+            <button
+              class="btn btn-blue span-2"
+              id="deleteBtn"
+              onclick="this.blur();"
+            >
+              DELETE
+            </button>
+            <button class="btn" onclick="this.blur();" data-number>7</button>
+            <button class="btn" onclick="this.blur();" data-number>8</button>
+            <button class="btn" onclick="this.blur();" data-number>9</button>
+            <button class="btn" onclick="this.blur();" data-operator>÷</button>
+  
+            <button class="btn" onclick="this.blur();" data-number>4</button>
+            <button class="btn" onclick="this.blur();" data-number>5</button>
+            <button class="btn" onclick="this.blur();" data-number>6</button>
+            <button class="btn" onclick="this.blur();" data-operator>×</button>
+  
+            <button class="btn" onclick="this.blur();" data-number>1</button>
+            <button class="btn" onclick="this.blur();" data-number>2</button>
+            <button class="btn" onclick="this.blur();" data-number>3</button>
+            <button class="btn" onclick="this.blur();" data-operator>−</button>
+  
+            <button class="btn" onclick="this.blur();" id="pointBtn">.</button>
+            <button class="btn" onclick="this.blur();" data-number>0</button>
+            <button class="btn" onclick="this.blur();" id="equalsBtn">=</button>
+            <button class="btn" onclick="this.blur();" data-operator>+</button>
+          </div>
+        </div>
+      </main>
+    
+</body>
+
+<script>
+
+    let firstOperand = '';
+    let secondOperand = '';
+    let currentOperation = null;
+    let shouldResetScreen = false;
+
+    const numberButtons = document.querySelectorAll('[data-number]')
+    const operatorButtons = document.querySelectorAll('[data-operator]')
+    const equalsButton = document.getElementById('equalsBtn')
+    const clearButton = document.getElementById('clearBtn')
+    const deleteButton = document.getElementById('deleteBtn')
+    const pointButton = document.getElementById('pointBtn')
+    const lastOperationScreen = document.getElementById('lastOperationScreen')
+    const currentOperationScreen = document.getElementById('currentOperationScreen')
+    
+    window.addEventListener('keydown', handleKeyboardInput)
+    equalsButton.addEventListener('click', evaluate)
+    clearButton.addEventListener('click', clear)
+    deleteButton.addEventListener('click', deleteNumber)
+    pointButton.addEventListener('click', appendPoint)
+
+    numberButtons.forEach((button) =>
+        button.addEventListener('click', () => appendNumber(button.textContent))
+    )
+
+    operatorButtons.forEach((button) =>
+        button.addEventListener('click', () => setOperation(button.textContent))
+    )   
+
+    function resetScreen() {
+        currentOperationScreen.textContent = ''
+        shouldResetScreen = false
+    }
+
+    function deleteNumber() {
+        currentOperationScreen.textContent = currentOperationScreen.textContent
+            .toString()
+            .slice(0, -1)
+    }
+
+    function clear() {
+        currentOperationScreen.textContent = '0'
+        lastOperationScreen.textContent = ''
+        firstOperand = ''
+        secondOperand = ''
+        currentOperation = null
+    }
+
+    function appendPoint() {
+        if (shouldResetScreen) resetScreen()
+        if (currentOperationScreen.textContent === '')
+            currentOperationScreen.textContent = '0'
+        if (currentOperationScreen.textContent.includes('.')) return
+            currentOperationScreen.textContent += '.'
+            }
+
+    function appendNumber(number) {
+        if (currentOperationScreen.textContent === '0' || shouldResetScreen)
+            resetScreen()
+            currentOperationScreen.textContent += number
+        }
+
+    function roundResult(number) {
+        return Math.round(number * 1000) / 1000
+        }
+
+    function evaluate() {
+        if (currentOperation === null || shouldResetScreen) return
+        if (currentOperation === '÷' && currentOperationScreen.textContent === '0') {
+            alert("You can't divide by 0!")
+                return
+        } 
+                
+            secondOperand = currentOperationScreen.textContent
+            currentOperationScreen.textContent = roundResult(
+            operate(currentOperation, firstOperand, secondOperand))
+
+            lastOperationScreen.textContent = `${firstOperand} ${currentOperation} ${secondOperand} =`
+            currentOperation = null
+            
+        }
+
+    function setOperation(operator) {
+            if (currentOperation !== null) evaluate()
+            
+            firstOperand = currentOperationScreen.textContent
+            currentOperation = operator
+            lastOperationScreen.textContent = `${firstOperand} ${currentOperation}`
+            shouldResetScreen = true
+        }
+
+    function add(a, b) {
+        return a + b;
+    }
+
+    function substract(a, b) {
+        return a - b
+    }
+
+    function multiply(a, b) {
+        return a * b
+    }
+
+    function divide(a, b) {
+        return a / b
+    }
+
+    function convertOperator(keyboardOperator) {
+        if (keyboardOperator === '/') return '÷'
+        if (keyboardOperator === '*') return '×'
+        if (keyboardOperator === '-') return '−'
+        if (keyboardOperator === '+') return '+'
+    }
+
+    function handleKeyboardInput(e) {
+        if (e.key >= 0 && e.key <= 9) appendNumber(e.key)
+        if (e.key === '.') appendPoint()
+        if (e.key === '=' || e.key === 'Enter') evaluate()
+        if (e.key === 'Backspace') deleteNumber()
+        if (e.key === 'Escape') clear()
+        if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/')
+            setOperation(convertOperator(e.key))
+    }
+
+    function operate(operator, a, b) {
+  a = Number(a)
+  b = Number(b)
+  switch (operator) {
+    case '+':
+      return add(a, b)
+    case '−':
+      return substract(a, b)
+    case '×':
+      return multiply(a, b)
+    case '÷':
+      if (b === 0) return null
+      else return divide(a, b)
+    default:
+      return null
+  }
+}
+
+</script>
+
+</html>
