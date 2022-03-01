@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+html,
+body {
+    margin: 0px;
+    background: #f2f2f2;
+    max-width: 100%;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.scroll-container,
+.scroll-area {
+    height: 100vh;
+    width: 100vw;
+    font-size: 60px;
+
+}
+
+.scroll-container {
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.scroll-area {
+    scroll-snap-align: start;
+}
+
+.scroll-container,
+.scroll-area {
+  margin: 0 auto;
+}
+
+.scroll-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.scroll-area:nth-of-type(1) {
+    background-image: url("https://www.solunion.es/wp-content/uploads/elementor/thumbs/situacion-comercio-exterior-ou52dicnbaroit7iw5sfwu1d8cx73q6qwxbsxuyn94.png");
+    background-size: 180vh;
+    background-repeat: no-repeat;
+    color: black;
+}
+
+.scroll-area:nth-of-type(2) {
+    background-image: url("Images/deGranero-clases-pintura-Madrid-1024x640.png");
+    background-repeat: no-repeat;
+    color: black;
+}
+
+.scroll-area:nth-of-type(3) {
+    background-color: rgba(245, 244, 244, 0.877);
+    color: black;
+}
+
+.scroll-area:nth-of-type(4) {
+    background-color: rgb(218, 214, 214);
+    color: black;
+}
+
+.header {
+    position: fixed;
+    color: black;
+    font-size: 15px;
+    top: 30px;
+    display: flex;
+    gap: 100px;
+    font-weight: bolder;
+    justify-content: center;
+}
+
+.logo {
+    display: flex;
+    position:absolute;
+    right: 850px;
+    width: 100px;
+    margin-top: 0px;
+}
+
+.index {
+    font-size: 20px;
+}
+
+footer {
+    display: flex;
+    gap: 50px;
+    font-size: 15px;
+    position: absolute;
+    bottom: 10px;
+}
+
+a, a:hover, a:focus, a:active {
+     text-decoration: none;
+     color: inherit;
+ }
+
+</style>
+
+<body>
+    
+    <main>
+        <div class="scroll-container">
+            <div class="scroll-area index">LAN ACCESS CONTROL
+                <header class="header">
+                    <img class="logo" src="./images/919a9c57-b3e9-4c16-aa79-b75c8c4ae1ef.jpg"/>
+                    <a href="#clavos"><div class="menu">Clavos</div></a>
+                    <a href="#pinturas"><div class="menu">Pinturas</div></a>
+                    <a href="#sacos"><div class="menu">Sacos de Polipropileno</div></a>
+                </header>
+            </div>
+            <div class="scroll-area" id="clavos">Clavos</div>
+            <div class="scroll-area pinturas" id="pinturas">Pinturas</div>
+            <div class="scroll-area sacos" id="sacos">Sacos de Polipropileno
+                <footer>
+                    <div>© 2022 LAN ACCESS CONTROL</div> 
+                    <div>globalbasquetrader@gmail.com</div>
+                </footer>
+            </div>
+        </div> 
+    </main>
+
+    
+
+
+</body>
+
+<script>
+
+
+
+</script>
+
+</html>
